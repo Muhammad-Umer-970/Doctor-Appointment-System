@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #f8fafc;
+  color: #1e293b;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #2563eb; border-radius: 3px; }
+
+a { color: inherit; }
+
+@keyframes spin   { to { transform: rotate(360deg); } }
+@keyframes fadeUp { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+@keyframes pulse  { 0%,100% { opacity:1; } 50% { opacity:.5; } }
+
+.animate-spin    { animation: spin .8s linear infinite; }
+.animate-fadeUp  { animation: fadeUp .5s ease both; }
+.animate-pulse   { animation: pulse 2s infinite; }
+
+/* pb-safe for mobile bottom nav */
+.pb-safe { padding-bottom: max(8px, env(safe-area-inset-bottom)); }
