@@ -63,16 +63,41 @@ const doctorSchema = new mongoose.Schema(
       required: [true, 'Experience is required'],
       min: [0, 'Experience cannot be negative'],
     },
+    // hospital: {
+    //   type: String,
+    //   required: [true, 'Hospital/Clinic name is required'],
+    //   enum: [
+    //     'HMC, Peshawar','KTH, Peshawar','RMI, Peshawar','IRNUM, Peshawar',
+    //     'Fauji Foundation Hospital, Peshawar',
+    //     'PIMS Hospital, Islamabad','Quaid-e-Azam International Hospital, Islamabad',
+    //     'Capital Hospital CDA, Islamabad',
+    //     'PAF Hospital, Islamabad','RIMS INTERNATIONAL HOSPITAL, Islamabad',
+    //     'Ali Medical Centre, Islamabad','KRL Hospital, Islamabad',
+    //     'Pakistan Railway Hospital, Islamabad','National Police Hospital, Islamabad',
+    //     'Life Care International Hospital, Islamabad',
+    //   ],
+    // },
     hospital: {
       type: String,
       required: [true, 'Hospital/Clinic name is required'],
       trim: true,
+      enum: [
+         'HMC, Peshawar','KTH, Peshawar','RMI, Peshawar','IRNUM, Peshawar',
+         'Fauji Foundation Hospital, Peshawar',
+         'PIMS Hospital, Islamabad','Quaid-e-Azam International Hospital, Islamabad',
+         'Capital Hospital CDA, Islamabad',
+         'PAF Hospital, Islamabad','RIMS INTERNATIONAL HOSPITAL, Islamabad',
+         'Ali Medical Centre, Islamabad','KRL Hospital, Islamabad',
+         'Pakistan Railway Hospital, Islamabad','National Police Hospital, Islamabad',
+         'Life Care International Hospital, Islamabad',
+       ],
     },
     location: {
       type: String,
       trim: true,
       default: '',
     },
+    
     fee: {
       type: Number,
       required: [true, 'Consultation fee is required'],

@@ -3,6 +3,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { Input, Select, Button } from '../../components/common/UI';
 import { toast } from 'react-toastify';
+import { Eye, EyeOff } from "lucide-react";
+
 
 export default function PatientRegister() {
   const { patientRegister } = useAuth();
@@ -13,6 +15,9 @@ export default function PatientRegister() {
     phone: '', age: '', gender: '', bloodGroup: '', address: '',
   });
   const [errors, setErrors] = useState({});
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   const set = (field) => (e) => setForm({ ...form, [field]: e.target.value });
 
@@ -60,11 +65,50 @@ export default function PatientRegister() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-2 gap-3">
-            <Input label="Full Name *" placeholder="John Doe" value={form.name} onChange={set('name')} error={errors.name} />
+            <Input label="Full Name *" placeholder="Mr. Example" value={form.name} onChange={set('name')} error={errors.name} />
             <Input label="Email *" type="email" placeholder="you@email.com" value={form.email} onChange={set('email')} error={errors.email} />
-            <Input label="Password *" type="password" placeholder="Min. 6 characters" value={form.password} onChange={set('password')} error={errors.password} />
-            <Input label="Confirm Password *" type="password" placeholder="Repeat password" value={form.confirm} onChange={set('confirm')} error={errors.confirm} />
-            <Input label="Phone *" placeholder="+1 (555) 000-0000" value={form.phone} onChange={set('phone')} error={errors.phone} />
+            
+            
+           <div className="relative mb-4">
+            <Input
+              label="Password *"
+              type={showPassword ? "text" : "password"}
+              placeholder="Min. 6 characters"
+              value={form.password}
+              onChange={set("password")}
+              error={errors.password}/>
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-10 text-gray-500">
+              {showPassword ? "Hide" : "Show"}
+            </button>
+          </div>
+
+          <div className="relative">
+            <Input
+              label="Confirm Password *"
+              type={showConfirm ? "text" : "password"}
+              placeholder="Repeat password"
+              value={form.confirm}
+              onChange={set("confirm")}
+              error={errors.confirm}/>
+            <button
+              type="button"
+              onClick={() => setShowConfirm(!showConfirm)}
+              className="absolute right-3 top-10 text-gray-500">
+              {showConfirm ? "Hide" : "Show"}
+            </button>
+          </div> 
+            
+            
+            {/* <Input label="Password *" type="password" placeholder="Min. 6 characters" value={form.password} onChange={set('password')} error={errors.password} />
+            <Input label="Confirm Password *" type="password" placeholder="Repeat password" value={form.confirm} onChange={set('confirm')} error={errors.confirm} /> */}
+            
+            
+            
+            
+            <Input label="Phone *" placeholder="+92 300 000-0000" value={form.phone} onChange={set('phone')} error={errors.phone} />
             <Input label="Age" type="number" placeholder="Years" min="1" max="120" value={form.age} onChange={set('age')} error={errors.age} />
             <Select label="Gender" value={form.gender} onChange={set('gender')}>
               <option value="">Select gender</option>

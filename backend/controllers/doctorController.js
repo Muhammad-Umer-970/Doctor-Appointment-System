@@ -4,16 +4,21 @@ const Appointment = require('../models/Appointment');
 // GET /api/doctors — public, list all active doctors
 const getAllDoctors = async (req, res, next) => {
   try {
-    const { specialization, search, page = 1, limit = 20 } = req.query;
+    const { specialization, search, location, page = 1, limit = 100 } = req.query;
     const filter = { isActive: true };
 
     if (specialization) filter.specialization = specialization;
     if (search) {
       filter.$or = [
-        { name: { $regex: search, $options: 'i' } },
+        { name: { $regex: search,  $options: 'i' } },
         { specialization: { $regex: search, $options: 'i' } },
         { hospital: { $regex: search, $options: 'i' } },
+        { location: { $regex: search, $options: 'i' } },
       ];
+    }
+
+     if (location) {
+      filter.location = { $regex: location, $options: 'i' };
     }
 
     const skip = (Number(page) - 1) * Number(limit);
@@ -62,7 +67,7 @@ const getMyProfile = async (req, res, next) => {
 const updateMyProfile = async (req, res, next) => {
   try {
     const allowedFields = [
-      'name', 'phone', 'specialization', 'qualification',
+      'name', 'phone', 'specialization', 'qualification',  
       'experience', 'hospital', 'location', 'fee', 'bio', 'availability',
     ];
     const updates = {};

@@ -23,9 +23,9 @@ export default function Home() {
   ];
 
   const testimonials = [
-    { name: 'Amanda Ross', role: 'Patient since 2023', text: 'Booking an appointment has never been this seamless. The whole experience felt so professional.', rating: 5 },
-    { name: 'Derek Pham', role: 'Regular Patient', text: 'I love how I can manage all my appointments from one place. The doctors are world-class.', rating: 5 },
-    { name: 'Lucia Fernandez', role: 'New Patient', text: 'Found an excellent cardiologist within minutes. The filtering system made it so easy!', rating: 5 },
+    { name: 'Ahmad Zayad', role: 'Patient since 2023', text: 'Booking an appointment has never been this seamless. The whole experience felt so professional.', rating: 5 },
+    { name: 'Eng. Shahid Afridi', role: 'Regular Patient', text: 'I love how I can manage all my appointments from one place. The doctors are world-class.', rating: 5 },
+    { name: 'Muneeba Shah', role: 'New Patient', text: 'Found an excellent cardiologist within minutes. The filtering system made it so easy!', rating: 5 },
   ];
 
   return (

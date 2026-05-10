@@ -5,6 +5,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { Card, Badge, Button, Avatar, PageLoader, EmptyState, Input, Select } from '../components/common/UI';
 import { toast } from 'react-toastify';
 
+
 const SPECIALIZATIONS = [
   'All','Cardiology','General Medicine','Dentistry','Neurology','Pediatrics',
   'Orthopedics','Dermatology','Gynecology','Psychiatry','Ophthalmology',
@@ -19,6 +20,9 @@ export default function DoctorsPage() {
   const [spec, setSpec]       = useState('All');
   const [booking, setBooking] = useState(null);
 
+  const [location, setLocation] = useState(''); //new addition 
+
+
   useEffect(() => {
     const fetchDoctors = async () => {
       setLoading(true);
@@ -26,6 +30,10 @@ export default function DoctorsPage() {
         const params = {};
         if (spec !== 'All') params.specialization = spec;
         if (search) params.search = search;
+
+        if (location !== 'All') params.location = location;    //new addition 
+        if (location) params.location = location;   //new addition 
+
         const res = await doctorAPI.getAll(params);
         setDoctors(res.data.doctors);
       } catch {
@@ -52,21 +60,57 @@ export default function DoctorsPage() {
         <div className="flex flex-wrap gap-4 mb-8 items-end">
           <div className="flex-1 min-w-[220px] relative">
             <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
+
             <input
-              className="w-full pl-9 pr-4 py-2.5 border-[1.5px] border-gray-200 rounded-xl text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
-              placeholder="Search by name or specialization…"
+              className="w-1/2 pl-9 pr-4 py-2.5 border-[1.5px] border-gray-200 rounded-xl text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+              placeholder="Search by name or specialization and location..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}/>
+
+            {/* <input
+              className=" pl-9 pr-4 py-2.5 border-[1.5px] border-gray-200 rounded-xl text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+              placeholder="Location..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-            />
+            /> */}
+
+
+            <select
+              value={spec}
+              onChange={(e) => setSpec(e.target.value)}
+              className="w-1/2 px-4  py-2.5 border-[1.5px] border-gray-200 rounded-xl text-sm outline-none bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+            >
+              {SPECIALIZATIONS.map((s) => (
+                <option key={s} value={s}>
+                  {s}
+                </option>
+              ))}
+            </select>
+                 
           </div>
-          <div className="flex gap-2 flex-wrap">
+
+          {/* <div className="flex gap-2 flex-wrap">
             {SPECIALIZATIONS.map(s => (
               <button key={s} onClick={() => setSpec(s)}
                 className={`px-3.5 py-2 rounded-lg text-xs font-bold border transition-all ${spec === s ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-600 border-gray-200 hover:border-blue-400 hover:text-blue-600'}`}>
                 {s}
               </button>
             ))}
-          </div>
+          </div> */}
+
+          {/* <div className="min-w-[220px]"> */}
+            {/* <select
+              value={spec}
+              onChange={(e) => setSpec(e.target.value)}
+              className="w-full px-4 py-2.5 border-[1.5px] border-gray-200 rounded-xl text-sm outline-none bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+            >
+              {SPECIALIZATIONS.map((s) => (
+                <option key={s} value={s}>
+                  {s}
+                </option>
+              ))}
+            </select> */}
+          {/* </div> */}
         </div>
 
         <p className="text-sm text-gray-500 mb-5">

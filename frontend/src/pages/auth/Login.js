@@ -12,6 +12,8 @@ export default function Login({ role = 'patient' }) {
   const [errors, setErrors] = useState({});
   const isDoctor = role === 'doctor';
 
+  const [showPassword, setShowPassword] = useState(false);
+
   const set = (field) => (e) => setForm({ ...form, [field]: e.target.value });
 
   const handleSubmit = async (e) => {
@@ -54,7 +56,36 @@ export default function Login({ role = 'patient' }) {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <Input label="Email Address" type="email" placeholder="your@email.com" value={form.email} onChange={set('email')} error={errors.email} teal={isDoctor} />
-          <Input label="Password" type="password" placeholder="Your password" value={form.password} onChange={set('password')} error={errors.password} teal={isDoctor} />
+          
+          
+          
+          <div className="relative">
+            <Input
+              label="Password"
+              type={showPassword ? "text" : "password"}
+              placeholder="Your password"
+              value={form.password}
+              onChange={set("password")}
+              error={errors.password}
+              teal={isDoctor}/>
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-10 text-gray-500">
+                {showPassword ? "Hide" : "Show"}
+              {/* {showPassword ? <EyeOff size={20} /> : <Eye size={20} />} */}
+            </button>
+          </div>
+          
+          
+          
+          {/* <Input label="Password" type="password" placeholder="Your password" value={form.password} onChange={set('password')} error={errors.password} teal={isDoctor} /> */}
+
+
+
+
+
+
 
           <Button
             type="submit"

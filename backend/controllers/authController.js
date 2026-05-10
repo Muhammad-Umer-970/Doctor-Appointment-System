@@ -76,7 +76,7 @@ const registerDoctor = async (req, res, next) => {
   try {
     const {
       name, email, password, phone, specialization, qualification,
-      experience, hospital, location, fee, bio,
+      experience, hospital , location, fee, bio,
     } = req.body;
 
     // Check both collections for email uniqueness

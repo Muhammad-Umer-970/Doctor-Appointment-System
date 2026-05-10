@@ -3,11 +3,21 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { Input, Select, Textarea, Button } from '../../components/common/UI';
 import { toast } from 'react-toastify';
+import { Eye, EyeOff } from "lucide-react";
+
+// import { Eye, EyeOff } from "lucide-react";
 
 const SPECIALIZATIONS = [
   'Cardiology','General Medicine','Dentistry','Neurology','Pediatrics',
   'Orthopedics','Dermatology','Gynecology','Psychiatry','Ophthalmology',
   'ENT','Urology','Radiology','Oncology','Endocrinology',
+];
+
+const hospital = [
+  'HMC, Peshawar','KTH, Peshawar','RMI, Peshawar','IRNUM, Peshawar','Fauji Foundation Hospital, Peshawar',
+  'PIMS Hospital, Islamabad','Quaid-e-Azam International Hospital, Islamabad','Capital Hospital CDA, Islamabad',
+  'PAF Hospital, Islamabad','RIMS INTERNATIONAL HOSPITAL, Islamabad',
+  'Ali Medical Centre, Islamabad','KRL Hospital, Islamabad','Pakistan Railway Hospital, Islamabad','National Police Hospital, Islamabad','Life Care International Hospital, Islamabad',
 ];
 
 export default function DoctorRegister() {
@@ -17,11 +27,16 @@ export default function DoctorRegister() {
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     name:'', email:'', password:'', confirm:'', phone:'',
-    specialization:'', qualification:'', experience:'',
-    hospital:'', location:'', fee:'', bio:'',
+    specialization:'' ,  qualification:'', experience:'',
+    hospital:'' ,location:'', fee:'', bio:'',
   });
   const [errors, setErrors] = useState({});
 
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
+
+
+ 
   const set = (field) => (e) => setForm({ ...form, [field]: e.target.value });
 
   const validateStep1 = () => {
@@ -69,6 +84,9 @@ export default function DoctorRegister() {
     }
   };
 
+
+
+
   return (
     <div className="min-h-screen bg-teal-50 flex items-center justify-center p-6">
       <div className="bg-white rounded-2xl shadow-lg border border-gray-200 w-full max-w-2xl p-8">
@@ -102,9 +120,53 @@ export default function DoctorRegister() {
                 <Input label="Full Name (with Dr.) *" placeholder="Dr. Example" value={form.name} onChange={set('name')} error={errors.name} teal />
               </div>
               <Input label="Email *" type="email" placeholder="doctor@email.com" value={form.email} onChange={set('email')} error={errors.email} teal />
-              <Input label="Phone *" placeholder="+1 (555) 000-0000" value={form.phone} onChange={set('phone')} error={errors.phone} teal />
-              <Input label="Password *" type="password" placeholder="Min. 6 characters" value={form.password} onChange={set('password')} error={errors.password} teal />
-              <Input label="Confirm Password *" type="password" placeholder="Repeat password" value={form.confirm} onChange={set('confirm')} error={errors.confirm} teal />
+              <Input label="Phone *" placeholder="+92 300 000-0000" value={form.phone} onChange={set('phone')} error={errors.phone} teal />
+
+
+
+
+      <div className="relative mb-4">
+        <Input 
+        label="Password *" 
+        type={showPassword ? "text" : "password"} 
+        placeholder="Min. 6 characters" 
+        value={form.password} 
+        onChange={set("password")} 
+        error={errors.password} teal />
+        <button
+          type="button"
+          onClick={() => setShowPassword(!showPassword)}
+          className="absolute right-3 top-10 text-gray-500">
+          {showPassword ? "Hide" : "Show"}
+          {/* {showPassword ? <EyeOff size={20} /> : <Eye size={20} />} */}
+        </button>
+      </div>
+
+      <div className="relative">
+        <Input 
+        label="Confirm Password *"
+        type={showConfirm ? "text" : "password"} 
+        placeholder="Repeat password" 
+        value={form.confirm} 
+        onChange={set("confirm")} 
+        error={errors.confirm} teal/>
+        <button
+          type="button"
+          onClick={() => setShowConfirm(!showConfirm)}
+          className="absolute right-3 top-10 text-gray-500">
+          {showConfirm ? "Hide" : "Show"}
+          {/* {showConfirm ? <EyeOff size={20} /> : <Eye size={20} />} */}
+        </button>
+      </div>
+
+              {/* <Input label="Password *" type="password" placeholder="Min. 6 characters" value={form.password} onChange={set('password')} error={errors.password} teal />
+              <Input label="Confirm Password *" type="password" placeholder="Repeat password" value={form.confirm} onChange={set('confirm')} error={errors.confirm} teal /> */}
+              
+              
+              
+              
+              
+              
               <Button type="button" variant="teal" size="lg" onClick={nextStep} className="col-span-2 justify-center mt-2">
                 Continue → Professional Details
               </Button>
@@ -121,7 +183,28 @@ export default function DoctorRegister() {
               <Input label="Qualification *" placeholder="MBBS, MD, etc." value={form.qualification} onChange={set('qualification')} error={errors.qualification} teal />
               <Input label="Years of Experience *" type="number" placeholder="e.g. 10" min="0" value={form.experience} onChange={set('experience')} error={errors.experience} teal />
               <Input label="Consultation Fee  *" type="number" placeholder="e.g. 150" min="0" value={form.fee} onChange={set('fee')} error={errors.fee} teal />
-              <Input label="Hospital / Clinic *" placeholder="Hospital or clinic name" value={form.hospital} onChange={set('hospital')} error={errors.hospital} teal />
+
+
+
+              {/* <Select label="Hospital / Clinic  *" value={form.hospitalClinic} onChange={set('specialization')} error={errors.specialization} teal>
+                <option value="">Select specialization</option>
+                <option value="">Select specialization</option>
+              </Select> */}
+
+
+
+              {/* <Input label="Hospital / Clinic *" placeholder="Hospital or clinic name" value={form.hospital} onChange={set('hospital')} error={errors.hospital} teal /> */}
+
+
+
+              <Select label="Hospital / Clinic *" value={form.hospital} onChange={set('hospital')} error={errors.hospital} teal>               
+                 <option value="">Select Hospital / Clinic</option>
+                 {hospital.map(s => <option key={s}>{s}</option>)} 
+              </Select>  
+
+
+
+
               <Input label="Location (City, State)" placeholder="Location " value={form.location} onChange={set('location')} teal />
               <div className="col-span-2">
                 <Textarea label="Professional Bio" rows={3} placeholder="Describe your expertise and patient care approach…" value={form.bio} onChange={set('bio')} teal />
