@@ -19,6 +19,8 @@ import Login           from './pages/auth/Login';
 
 import PatientDashboard from './pages/patient/PatientDashboard';
 import DoctorDashboard  from './pages/doctor/DoctorDashboard';
+import AdminLogin       from './pages/admin/AdminLogin';
+import AdminDashboard   from './pages/admin/AdminDashboard';
 
 export default function App() {
   return (
@@ -42,6 +44,10 @@ export default function App() {
               {/* Protected dashboards */}
               <Route path="/patient/dashboard" element={<RoleRoute role="patient"><PatientDashboard /></RoleRoute>} />
               <Route path="/doctor/dashboard"  element={<RoleRoute role="doctor"><DoctorDashboard /></RoleRoute>} />
+
+              {/* Admin routes */}
+              <Route path="/admin/login"     element={<AdminLogin />} />
+              <Route path="/admin/dashboard" element={<AdminDashboard />} />
 
               {/* Fallback */}
               <Route path="*" element={<Navigate to="/" replace />} />

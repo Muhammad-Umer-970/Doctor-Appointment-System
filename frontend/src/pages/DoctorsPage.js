@@ -282,7 +282,7 @@ function BookingModal({ doctor, user, onClose }) {
                 <Avatar name={doctor.name} size="md" color="blue" />
                 <div>
                   <p className="font-bold text-gray-900 text-sm">{doctor.name}</p>
-                  <p className="text-xs text-gray-600">{doctor.hospital} · ${doctor.fee} consultation</p>
+                  <p className="text-xs text-gray-600">{doctor.hospital} · Pkr..{doctor.fee} consultation fee</p>
                 </div>
               </div>
 
