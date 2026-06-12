@@ -1,4 +1,5 @@
 require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
@@ -28,7 +29,7 @@ app.get('/', (req, res) => {
 
 // ── Middleware ────────────────────────────────────────────────────────────────
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:3000',
+  origin: (process.env.CLIENT_URL || 'http://localhost:3000').trim(),
   credentials: true,
 }));
 app.use(express.json({ limit: '10mb' }));
